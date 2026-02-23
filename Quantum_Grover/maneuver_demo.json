@@ -1,0 +1,84 @@
+{
+  "maneuvers": [
+    {
+      "id": 9,
+      "score": 0.7068,
+      "validity": true
+    },
+    {
+      "id": 14,
+      "score": 0.6472,
+      "validity": true
+    },
+    {
+      "id": 10,
+      "score": 0.7054,
+      "validity": true
+    },
+    {
+      "id": 13,
+      "score": 0.6501,
+      "validity": true
+    },
+    {
+      "id": 7,
+      "score": 0.7241,
+      "validity": true
+    },
+    {
+      "id": 6,
+      "score": 0.7353,
+      "validity": true
+    },
+    {
+      "id": 15,
+      "score": 0.6405,
+      "validity": true
+    },
+    {
+      "id": 8,
+      "score": 0.7201,
+      "validity": true
+    },
+    {
+      "id": 11,
+      "score": 0.7025,
+      "validity": true
+    },
+    {
+      "id": 4,
+      "score": 0.759,
+      "validity": true
+    },
+    {
+      "id": 3,
+      "score": 0.7686,
+      "validity": true
+    },
+    {
+      "id": 2,
+      "score": 0.771,
+      "validity": true
+    },
+    {
+      "id": 12,
+      "score": 0.6667,
+      "validity": true
+    },
+    {
+      "id": 1,
+      "score": 0.7826,
+      "validity": true
+    },
+    {
+      "id": 5,
+      "score": 0.7572,
+      "validity": true
+    },
+    {
+      "id": 0,
+      "score": 0.8242,
+      "validity": true
+    }
+  ]
+}

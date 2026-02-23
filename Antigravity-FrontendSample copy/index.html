@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project: 𝙰𝚎𝚐𝚒𝚜</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+  <!-- Top Bar with Title (Grey, fades in on scroll) -->
+  <div id="top-bar">
+    <span id="bar-title">Project: 𝙰𝚎𝚐𝚒𝚜</span>
+    <div id="connection-status" class="status-disconnected">
+      <span class="status-dot"></span>
+      <span class="status-text">Disconnected</span>
+    </div>
+  </div>
+
+  <!-- Video Background Container -->
+  <div class="video-background" id="video-bg">
+    <iframe id="yt-video"
+      src="https://www.youtube.com/embed/Qsd8LwscwP4?autoplay=1&mute=1&controls=0&loop=1&playlist=Qsd8LwscwP4&playsinline=1&modestbranding=1&showinfo=0&rel=0&iv_load_policy=3&disablekb=1"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Main Title (Fixed centered, white text) -->
+  <div id="title-container">
+    <h1 id="main-title">Project: 𝙰𝚎𝚐𝚒𝚜</h1>
+    <p id="subtitle">Planetary Defense System</p>
+  </div>
+
+  <!-- Scroll Container -->
+  <div class="scroll-container">
+    <!-- Spacer for the video section -->
+    <div class="hero-spacer"></div>
+
+    <!-- Dashboard Section -->
+    <div class="content-section" id="dashboard">
+      <div class="dashboard-container">
+
+        <!-- Command Center Panel -->
+        <div class="panel panel-input">
+          <h2 class="panel-title">🤖 Command Center</h2>
+
+          <div class="command-interface">
+            <textarea id="command-prompt" class="command-input"
+              placeholder="Enter mission command (e.g., 'Target asteroid Apophis-99942' or just 'Apophis')..."></textarea>
+            <div class="button-group">
+              <button id="analyze-btn" class="btn btn-primary">
+                🚀 Initialize Sequence
+              </button>
+            </div>
+          </div>
+
+          <!-- Target Info (Hidden until locked) -->
+          <div id="target-info" class="target-info-card hidden">
+            <div class="target-header">
+              <span class="target-status">TARGET LOCKED</span>
+              <h3 id="target-name-display">Unknown</h3>
+            </div>
+            <div class="target-grid">
+              <div class="target-item">
+                <span class="label">Diameter</span>
+                <span class="value" id="disp-diameter">-</span>
+              </div>
+              <div class="target-item">
+                <span class="label">Mass</span>
+                <span class="value" id="disp-mass">-</span>
+              </div>
+              <div class="target-item">
+                <span class="label">Velocity</span>
+                <span class="value" id="disp-velocity">-</span>
+              </div>
+              <div class="target-item">
+                <span class="label">Impact Prob.</span>
+                <span class="value highlight" id="disp-probability">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agent Progress Panel -->
+        <div class="panel panel-progress">
+          <h2 class="panel-title">🤖 Agent Pipeline</h2>
+
+          <div class="agent-timeline">
+            <!-- Agent 1 -->
+            <div class="agent-step" id="agent1-step">
+              <div class="agent-icon">🔍</div>
+              <div class="agent-info">
+                <div class="agent-name">Agent 1: Intelligence Officer</div>
+                <div class="agent-status" id="agent1-status">Waiting...</div>
+                <div class="agent-result" id="agent1-result"></div>
+              </div>
+              <div class="agent-indicator"></div>
+            </div>
+
+            <!-- Agent 2 -->
+            <div class="agent-step" id="agent2-step">
+              <div class="agent-icon">🧠</div>
+              <div class="agent-info">
+                <div class="agent-name">Agent 2: Strategic Planner</div>
+                <div class="agent-status" id="agent2-status">Waiting...</div>
+                <div class="agent-result" id="agent2-result"></div>
+              </div>
+              <div class="agent-indicator"></div>
+            </div>
+
+            <!-- Quantum -->
+            <div class="agent-step" id="quantum-step">
+              <div class="agent-icon">⚛️</div>
+              <div class="agent-info">
+                <div class="agent-name">Quantum Optimization</div>
+                <div class="agent-status" id="quantum-status">Waiting...</div>
+                <div class="agent-result" id="quantum-result"></div>
+              </div>
+              <div class="agent-indicator"></div>
+            </div>
+
+            <!-- Agent 3 -->
+            <div class="agent-step" id="agent3-step">
+              <div class="agent-icon">🔒</div>
+              <div class="agent-info">
+                <div class="agent-name">Agent 3: Safety Validator</div>
+                <div class="agent-status" id="agent3-status">Waiting...</div>
+                <div class="agent-result" id="agent3-result"></div>
+              </div>
+              <div class="agent-indicator"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="panel panel-results">
+          <h2 class="panel-title">📊 Mission Results</h2>
+
+          <div id="results-placeholder">
+            <p>Start analysis to see results...</p>
+          </div>
+
+          <div id="results-content" class="hidden">
+            <!-- Threat Assessment -->
+            <div class="result-card" id="threat-card">
+              <h3>🎯 Threat Assessment</h3>
+              <div class="result-grid">
+                <div class="result-item">
+                  <span class="result-label">Risk Score</span>
+                  <span class="result-value" id="risk-score">-</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Kinetic Energy</span>
+                  <span class="result-value" id="kinetic-energy">-</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Damage Category</span>
+                  <span class="result-value" id="damage-category">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulation Log (Added) -->
+            <div class="result-card" id="simulation-card" style="display: none;">
+              <h3>💥 Simulation Log (Agent 2)</h3>
+              <div class="table-container" style="max-height: 200px; overflow-y: auto;">
+                <table id="simulation-table" style="width: 100%; font-size: 0.8em; text-align: left;">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Vel (km/s)</th>
+                      <th>Angle (°)</th>
+                      <th>Score</th>
+                      <th>Valid</th>
+                    </tr>
+                  </thead>
+                  <tbody id="simulation-body">
+                    <!-- Filled dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Quantum Results -->
+            <div class="result-card" id="quantum-card">
+              <h3>⚛️ Quantum Optimization</h3>
+              <div class="result-grid">
+                <div class="result-item">
+                  <span class="result-label">Optimal Index</span>
+                  <span class="result-value" id="optimal-index">-</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Quantum Advantage</span>
+                  <span class="result-value highlight" id="quantum-advantage">-</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Success Probability</span>
+                  <span class="result-value" id="success-prob">-</span>
+                </div>
+              </div>
+              <div class="quantum-controls" style="margin-top: 15px; text-align: center;">
+                <button id="run-quantum-btn" class="btn btn-primary" style="font-size: 0.9em; padding: 8px 16px;">
+                  📊 Plot Histogram
+                </button>
+              </div>
+              <div id="quantum-plot-container" style="margin-top: 15px; text-align: center; display: none;">
+                <img id="quantum-plot" src="" alt="Quantum Search Histogram"
+                  style="max-width: 100%; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1);">
+              </div>
+              <div class="optimal-params" id="optimal-params">
+                <!-- Filled dynamically -->
+              </div>
+            </div>
+
+            <!-- Safety Verdict -->
+            <div class="result-card" id="safety-card">
+              <h3>🔒 Safety Evaluation</h3>
+              <div class="result-grid">
+                <div class="result-item">
+                  <span class="result-label">Fragmentation Risk</span>
+                  <span class="result-value" id="frag-risk">-</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Miss Distance</span>
+                  <span class="result-value" id="miss-distance">-</span>
+                </div>
+                <div class="result-item">
+                  <span class="result-label">Confidence</span>
+                  <span class="result-value" id="confidence">-</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Final Verdict -->
+            <div class="verdict-banner" id="verdict-banner">
+              <span class="verdict-icon" id="verdict-icon">⏳</span>
+              <span class="verdict-text" id="verdict-text">Analyzing...</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/premium-animations.js"></script>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
