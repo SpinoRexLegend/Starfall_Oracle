@@ -5,7 +5,7 @@ import java.util.List;
 public class CsvHandler {
 
     private final String fileName;
-    private final String[] headers = {"Simulation_ID", "ImpactAngle", "ExecutionTime", "MissedDistance", "Success"};
+    private final String[] headers = {"Simulation_ID", "ImpactAngle", "ExecutionTime", "MissedDistance", "RiskScore", "Success"};
 
     public CsvHandler() {
         this.fileName = "D:\\PersonalProject\\Starfall_Oracle\\src\\main\\CSV_Files\\Simulation.csv";
@@ -16,7 +16,7 @@ public class CsvHandler {
              BufferedWriter bw = new BufferedWriter(fw);
              PrintWriter out = new PrintWriter(bw)) {
 
-            out.println(String.join(",", values));
+            out.println(String.join(";", values));
 
         } catch (IOException e) {
             e.printStackTrace();
