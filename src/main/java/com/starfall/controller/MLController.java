@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 
 @RestController
-@RequestMapping("/api/compute")
+@RequestMapping("/api")
 public class MLController {
 
     private final MLAnalysisService mLAnalysisService;
@@ -21,9 +21,12 @@ public class MLController {
 
     @PostMapping("/process")
     public ResponseEntity<HashMap<String, Object>> process(
-            @RequestBody HashMap<String, Object> body) {
+            @RequestBody HashMap<String, Integer> body) {
 
-        HashMap<String, Object> result = mLAnalysisService.callPython(body);
+        Integer dia = body.get("diameter");
+        Integer vel = body.get("velocity");
+
+        HashMap<String, Object> result = mLAnalysisService.callPython(dia, vel);
 
         return ResponseEntity.ok(result);
     }

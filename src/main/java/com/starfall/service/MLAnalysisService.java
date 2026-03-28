@@ -1,5 +1,6 @@
 package com.starfall.service;
 
+import com.starfall.ProcessBuilder.PythonProcessBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -13,14 +14,19 @@ public class MLAnalysisService {
 
     private final RestTemplate restTemplate;
 
+    private final PythonProcessBuilder processBuilder;
+
     @Value("${python.service.url:http://localhost:5000}")
     private String pythonBaseUrl;
 
-    public MLAnalysisService(RestTemplate restTemplate) {
+    public MLAnalysisService(RestTemplate restTemplate, PythonProcessBuilder processBuilder) {
         this.restTemplate = restTemplate;
+        this.processBuilder = processBuilder;
     }
 
-    public HashMap<String, Object> callPython(HashMap<String, Object> inputMap) {
+    public HashMap<String, Object> callPython(Integer dia, Integer vel) {
+
+        HashMap<String, Object> inputMap = processBuilder.buildRequest(dia,vel);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
