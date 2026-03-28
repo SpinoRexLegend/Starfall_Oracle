@@ -1,36 +1,39 @@
 package com.starfall.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-import java.util.List;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
 
 @Service
 public class MLAnalysisService {
 
-    private final WebClient mlWebClient;
+    private final RestTemplate restTemplate;
 
-    // The Service receives the 'Gate' (WebClient) from the Config
-    public MLAnalysisService(WebClient mlWebClient) {
-        this.mlWebClient = mlWebClient;
+    @Value("${python.service.url:http://localhost:5000}")
+    private String pythonBaseUrl;
+
+    public MLAnalysisService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    /**
-     * This method handles the actual communication logic.
-     * Input: String[] (e.g., Farm IDs or sensor metrics)
-     * Output: List<String[]> (e.g., Multiple prediction sets)
-     */
-    public Mono<List<String[]>> getComplexPredictions(String[] inputData) {
-        return mlWebClient.post()
-                .uri("/ml/analyze")
-                .bodyValue(inputData)
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<String[]>>() {})
-                // You can add logic here to "clean" the data before sending it to the Controller
-                .map(response -> {
-                    // Example: Filter out empty results or log the data
-                    return response;
-                });
+    public HashMap<String, Object> callPython(HashMap<String, Object> inputMap) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<HashMap<String, Object>> requestEntity = new HttpEntity<>(inputMap, headers);
+
+        ResponseEntity<HashMap<String, Object>> response = restTemplate.exchange(
+                pythonBaseUrl + "/predict",
+                HttpMethod.POST,
+                requestEntity,
+                new ParameterizedTypeReference<HashMap<String, Object>>() {}
+        );
+
+        return response.getBody();
     }
 }
