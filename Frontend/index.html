@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Project Starfall — Asteroid threat simulation and quantum analysis platform.">
+    <title>Project Starfall</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <section class="hero-container">
+        <video autoplay muted loop playsinline class="bg-video">
+            <source src="Resources/Earth.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <h1 class="title">PROJECT STARFALL</h1>
+    </section>
+
+    <div class="transition-dip"></div>
+
+    <section class="sim-wrapper">
+        <video autoplay muted loop playsinline class="sim-video">
+            <source src="Resources/BlackHoleV2.mp4" type="video/mp4">
+        </video>
+        <div class="grid-layer"></div>
+        <div class="ui-container">
+            <h2 class="header-text">Enter Asteroid ID</h2>
+            <input id="userInput" type="text" class="id-input" placeholder="Aphophis 3.0">
+            <button id="startBtn" class="start-btn">
+                <span class="btn-text">CLICK TO START SIMULATION</span>
+                <span class="border-shine"></span>
+            </button>
+        </div>
+    </section>
+
+    <div class="transition-dip"></div>
+
+    <section class="analysis-section">
+        <div class="visual-pane">
+            <img src="Resources/Asteroids.jpeg" alt="Asteroid Analysis" class="asteroid-img">
+        </div>
+
+        <div class="data-pane">
+            <div class="terminal-grid-overlay"></div>
+            <div class="table-wrapper">
+                <h3 class="analysis-title">ANALYSIS LOGS</h3>
+                <table class="asteroid-log-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Velocity</th>
+                            <th>Distance</th>
+                            <th>Threat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-body">
+                        <tr>
+                            <td>AS-091</td>
+                            <td>42.5 km/s</td>
+                            <td>0.004 AU</td>
+                            <td class="threat-high">CRITICAL</td>
+                        </tr>
+                        <tr>
+                            <td>AS-042</td>
+                            <td>28.1 km/s</td>
+                            <td>0.012 AU</td>
+                            <td class="threat-high">CRITICAL</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div class="transition-dip"></div>
+
+    <section class="qtm-histogram">
+        <div class="histogram-pane">
+            <div class="histogram-graph">
+                <div class="hist-axis-y">
+                    <span>1</span>
+                    <span>0.75</span>
+                    <span>0.50</span>
+                    <span>0.25</span>
+                    <span>0</span>
+                </div>
+                <div class="hist-bars">
+                    <div class="bar-group">
+                        <div class="bar" style="height:80%"></div>
+                        <span class="bar-label">ID-01</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:60%"></div>
+                        <span class="bar-label">ID-02</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar highlight" style="height:95%"></div>
+                        <span class="bar-label">ID-03</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:40%"></div>
+                        <span class="bar-label">ID-04</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:70%"></div>
+                        <span class="bar-label">ID-05</span>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height:55%"></div>
+                        <span class="bar-label">ID-06</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="visual-pane">
+            <img src="Resources/Satellite.avif" alt="Satellite Visual" class="satellite-img">
+        </div>
+    </section>
+
+    <div class="transition-dip"></div>
+
+    <section id="section-result" class="result-container">
+        <video autoplay muted loop playsinline class="result-video">
+            <source src="Resources/EndEarth.mp4" type="video/mp4">
+        </video>
+        <header class="top-bar">
+            <h2 class="result-title">Final Decision</h2>
+        </header>
+        <div class="content-overlay">
+            <p id="output-text" class="sample-output">
+                This is the sample final output provided by Project Starfall
+            </p>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
