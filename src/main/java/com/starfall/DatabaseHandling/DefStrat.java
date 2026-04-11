@@ -9,4 +9,7 @@ import lombok.Data;
 @Data
 public class DefStrat {
 
+    @Id
+    @Column(name = "strategy_id")
+    private String stratId;
 }

@@ -315,6 +315,12 @@ body {
     text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
 }
 
+.threat-low {
+    color: #4CAF50;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+}
+
 .qtm-histogram {
     position: relative;
     z-index: 1;

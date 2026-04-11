@@ -1,29 +1,29 @@
 package com.starfall.controller;
 
-import com.starfall.DatabaseHandling.DatabaseController;
+import com.starfall.coreLogic.AsteroidChecker;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "*")
 public class AsteroidController {
 
+    private final AsteroidChecker asteroidChecker;
+
+    public AsteroidController(AsteroidChecker asteroidChecker) {
+        this.asteroidChecker = asteroidChecker;
+    }
+
     @PostMapping("/asteroid")
-    public Map<String, String> receiveAsteroid(@RequestBody Map<String, String> payload) {
+    public ResponseEntity<?> receiveAsteroid(@RequestBody HashMap<String, String> payload) {
 
         String asteroidId = payload.get("asteroidId");
-        DatabaseController dbms = new DatabaseController();
 
-        System.out.println("Received Asteroid ID: " + asteroidId);
-
-        dbms.getAsteroid(asteroidId);
-        Map<String, String> response = new HashMap<>();
-        response.put("status", "received");
-        response.put("asteroidId", asteroidId);
-
-        return response;
+        // Delegates and RETURNS whatever comes back
+        return asteroidChecker.handleAsteroid(asteroidId);
     }
 }

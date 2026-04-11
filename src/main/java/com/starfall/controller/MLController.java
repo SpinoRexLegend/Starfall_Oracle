@@ -1,33 +1,54 @@
 package com.starfall.controller;
 
+import com.starfall.DatabaseHandling.Asteroid;
 import com.starfall.service.MLAnalysisService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;
 
-@RestController
-@RequestMapping("/api")
+import java.util.List;
+
+@Controller
 public class MLController {
 
-    private final MLAnalysisService mLAnalysisService;
+    private final MLAnalysisService mlAnalysisService;
 
-    public MLController(MLAnalysisService mLAnalysisService) {
-        this.mLAnalysisService = mLAnalysisService;
+    public MLController(MLAnalysisService mlAnalysisService) {
+        this.mlAnalysisService = mlAnalysisService;
     }
 
-    @PostMapping("/process")
-    public ResponseEntity<HashMap<String, Object>> process(
-            @RequestBody HashMap<String, Integer> body) {
+    public List<HashMap<String, Object>> processAsteroid(Asteroid asteroid) {
 
-        Integer dia = body.get("diameter");
-        Integer vel = body.get("velocity");
+        String material = asteroid.getComposition();
+        double dia = asteroid.getDiameter();
+        double vel = asteroid.getVelocity();
 
-        HashMap<String, Object> result = mLAnalysisService.callPython(dia, vel);
+        return mlAnalysisService.callPython(material, dia, vel);
+    }
 
-        return ResponseEntity.ok(result);
+    public HashMap<String, Object> processRisk(Asteroid asteroid, HashMap<String, Object> bestSimulation) {
+        String material = asteroid.getComposition();
+        double dia = asteroid.getDiameter();
+        double vel = asteroid.getVelocity();
+
+        double bestFuel = bestSimulation != null && bestSimulation.containsKey("Fuel Cost")
+                ? Double.parseDouble(String.valueOf(bestSimulation.get("Fuel Cost")))
+                : 0;
+        double bestDist = bestSimulation != null
+                && bestSimulation.containsKey("Distance from which it will pass if force is applied at that angle")
+                        ? Double.parseDouble(String.valueOf(bestSimulation
+                                .get("Distance from which it will pass if force is applied at that angle")))
+                        : 0;
+
+        return mlAnalysisService.callRiskAssessmentPython(asteroid.getAsteroid_Id(), material, dia, vel, bestFuel,
+                bestDist);
+    }
+
+    public HashMap<String, Object> processQuantumOptimization(HashMap<String, Object> riskAssessment, List<String> simulationIds) {
+        double riskScore = riskAssessment != null && riskAssessment.containsKey("riskScore") ? Double.parseDouble(String.valueOf(riskAssessment.get("riskScore"))) : 0;
+        boolean requiresDeflection = riskAssessment != null && riskAssessment.containsKey("requiresDeflection") && Boolean.parseBoolean(String.valueOf(riskAssessment.get("requiresDeflection")));
+
+        return mlAnalysisService.callQuantumPython(riskScore, requiresDeflection, simulationIds);
     }
 }

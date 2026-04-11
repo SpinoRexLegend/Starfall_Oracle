@@ -3,9 +3,11 @@ package com.starfall.DatabaseHandling;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Entity
+@Table(name = "quantum_optimisation_result")
 @Data
 public class QuantumOptimise {
 

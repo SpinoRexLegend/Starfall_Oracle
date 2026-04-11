@@ -10,7 +10,6 @@ import java.util.List;
 public class Asteroid {
 
     @Id
-    @OneToMany(fetch = FetchType.EAGER)
     private String asteroid_Id;
 
     private String name;
