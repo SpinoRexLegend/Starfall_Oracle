@@ -2,6 +2,12 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+import random
+import uuid
+from datetime import datetime
+import RiskAssessor
+import QuantumOptimizer
+
 @app.route("/predict", methods=["POST"])
 def predict():
 
@@ -16,10 +22,6 @@ def predict():
 
     if diameter is None or velocity is None:
         return jsonify({"error": "Diameter and Velocity are required"}), 400
-
-    import random
-    import uuid
-    from datetime import datetime
 
     simulations = []
     base_fuel = (diameter * velocity) / 10.0
@@ -55,8 +57,6 @@ def assess():
     if not data:
         return jsonify({"error": "No data received"}), 400
         
-    import RiskAssessor
-    
     asteroid_id = data.get("asteroidID")
     diameter = data.get("Diameter")
     velocity = data.get("Velocity")
@@ -78,8 +78,6 @@ def quantum():
     if not data:
         return jsonify({"error": "No data received"}), 400
         
-    import QuantumOptimizer
-    
     risk_score = data.get("riskScore", 0.0)
     requires_deflection = data.get("requiresDeflection", False)
     simulation_ids = data.get("simulationIDs", [])

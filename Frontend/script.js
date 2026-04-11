@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            console.log("Final Result:", data);
 
             const logBody = document.getElementById("log-body");
             const simData = data.simulations || (Array.isArray(data) ? data : []);
@@ -85,13 +84,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const outputText = document.getElementById("output-text");
             if (outputText && Object.keys(data).length > 0) {
-                outputText.innerText = `Asteroid ${asteroidID} has been analyzed. ${simData.length} potential simulation outcomes displayed. Optimal quantum amplitude factored in.`;
+                const risk = data.riskAssessment || {};
+                const opt = data.optimalStrategy || {};
+                
+                const riskLevel = risk.impactProbability ? (parseFloat(risk.impactProbability) * 100).toFixed(1) + "%" : "Unknown";
+                const impactEnergy = risk.kineticEnergyMT ? risk.kineticEnergyMT + " MT (" + risk.estimatedDamage + " Damage)" : "Unknown";
+                
+                const missDistKey = "Distance from which it will pass if force is applied at that angle";
+                const timeKey = "Execution time for hitting the earth";
+                const fuelKey = "Fuel Cost";
+                
+                const missDistance = opt[missDistKey] ? parseFloat(opt[missDistKey]).toFixed(2) + " km miss distance" : "Unknown";
+                const fuelCost = opt[fuelKey] ? parseFloat(opt[fuelKey]).toFixed(2) + " fuel units over " + parseFloat(opt[timeKey]).toFixed(2) + "s" : "Unknown";
+                
+                let isSuccess = false;
+                const successVal = opt["Chances of success"] || opt["Success"] || opt["success"];
+                if (successVal !== undefined) {
+                    isSuccess = (successVal === 1 || successVal === true || successVal === "1" || successVal === "true");
+                }
+                const finalOutcome = isSuccess ? "a safe and successful deflection" : "critical planetary compromise";
+
+                outputText.innerText = `Asteroid ${asteroidID} analysis indicates a ${riskLevel} impact probability with an estimated damage potential of ${impactEnergy}.\n\nOptimal deflection strategy—validated through quantum-inspired optimization—achieves ${missDistance} at a cost of ${fuelCost}, ensuring ${finalOutcome}.`;
             }
 
-            nextSection.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
+            const hiddenLayers = document.getElementById("hidden-analysis-layers");
+            if (hiddenLayers) {
+                hiddenLayers.style.display = "block";
+                // Force a reflow to make the opacity transition work smoothly
+                void hiddenLayers.offsetWidth; 
+                hiddenLayers.style.opacity = "1";
+            }
+
+            // Small delay to allow the layout to render the display change before scrolling
+            setTimeout(() => {
+                nextSection.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }, 100);
 
         } catch (error) {
             console.error("Error:", error);

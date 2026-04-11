@@ -132,6 +132,8 @@ public class AsteroidChecker {
         HashMap<String, Object> finalResponse = new HashMap<>();
         finalResponse.put("simulations", results);
         finalResponse.put("quantum", quantumOptimization != null ? quantumOptimization : new HashMap<>());
+        finalResponse.put("riskAssessment", riskAssessment != null ? riskAssessment : new HashMap<>());
+        finalResponse.put("optimalStrategy", bestResult != null ? bestResult : new HashMap<>());
 
         return ResponseEntity.ok(finalResponse);
     }
