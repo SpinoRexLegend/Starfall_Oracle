@@ -213,7 +213,7 @@ body {
     width: 100%;
     height: 400px;
     position: relative;
-    z-index: 10;
+    z-index: 7;
     margin-top: -200px;
     margin-bottom: -200px;
     background: linear-gradient(to bottom,
@@ -240,9 +240,9 @@ body {
 }
 
 .asteroid-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 150%;
+    height: auto;
+    align-content: center;
 }
 
 .data-pane {
@@ -277,10 +277,11 @@ body {
 }
 
 .analysis-title {
-    font-family: 'Cinzel', serif;
+    font-family: 'Monsieur La Doulaise', cursive;
     color: #d4a373;
+    font-size: 3.5rem;
+    font-weight: 100;
     text-align: right;
-    font-size: 3rem;
     letter-spacing: 3px;
     margin-bottom: 20px;
 }
@@ -328,53 +329,114 @@ body {
     grid-template-columns: 1fr 1fr;
     height: 100vh;
     width: 100%;
-    background: #000;
+    background:
+            radial-gradient(circle at 74% 34%, rgba(125,211,252,0.03), transparent 22%),
+            radial-gradient(circle at 18% 16%, rgba(212,163,115,0.02), transparent 18%),
+            #000;
     overflow: hidden;
 }
 
 .histogram-pane {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px;
-    background: rgba(0, 0, 0, 0.8);
-    position: relative;
+    padding: 60px 30px 60px 60px;
+    background: transparent;
     z-index: 2;
 }
 
-.histogram-graph {
-    width: 100%;
-    height: 80%;
-    display: flex;
+.hist-panel {
     position: relative;
-    border-left: 1px solid rgba(212, 163, 115, 0.2);
-    border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+    width: 100%;
+    max-width: 860px;
+    height: 78%;
+    padding: 30px 34px 26px 34px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.003));
+    border: 1px solid rgba(212,163,115,0.03);
+    box-shadow:
+            inset 0 0 0 1px rgba(255,255,255,0.008),
+            0 0 18px rgba(0,0,0,0.08);
+    backdrop-filter: blur(1px);
+}
+
+.hist-panel-header {
+    margin-bottom: 26px;
+}
+
+.hist-title {
+    font-family: 'Monsieur La Doulaise', cursive;
+    color: #d4a373;
+    font-size: 3.5rem;
+    font-weight: 100;
+    text-align: Left;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.hist-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.58);
+    letter-spacing: 0.5px;
+}
+
+.histogram-graph {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 120px);
+    display: flex;
+    border-left: 1px solid rgba(212, 163, 115, 0.12);
+    border-bottom: 1px solid rgba(212, 163, 115, 0.12);
+    background: linear-gradient(180deg, rgba(255,255,255,0.003), rgba(255,255,255,0));
 }
 
 .hist-axis-y {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-right: 20px;
+    padding-right: 18px;
     position: absolute;
-    left: -3rem;
+    left: -3.2rem;
     top: 0;
     height: 100%;
 }
 
 .hist-axis-y span {
     font-family: 'Inter', sans-serif;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.34);
+    font-size: 0.78rem;
     text-align: right;
 }
 
+.hist-grid-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.hist-grid-lines span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(212,163,115,0.04), rgba(255,255,255,0.006));
+}
+
+.hist-grid-lines span:nth-child(1) { top: 20%; }
+.hist-grid-lines span:nth-child(2) { top: 40%; }
+.hist-grid-lines span:nth-child(3) { top: 60%; }
+.hist-grid-lines span:nth-child(4) { top: 80%; }
+
 .hist-bars {
+    position: relative;
+    z-index: 1;
     flex: 1;
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
-    padding: 0 40px;
+    padding: 0 42px;
 }
 
 .bar-group {
@@ -384,67 +446,116 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    transition: transform 0.25s ease;
+}
+
+.bar-group:hover {
+    transform: translateY(-4px);
 }
 
 .bar {
     width: 100%;
-    background: rgba(212, 163, 115, 0.1);
-    border: 1px solid rgba(212, 163, 115, 0.4);
-    transition: height 1s ease-out, background 0.3s;
+    background: linear-gradient(180deg, rgba(212, 163, 115, 0.18), rgba(212, 163, 115, 0.07));
+    border: 1px solid rgba(212, 163, 115, 0.24);
+    transition: height 1s ease-out, background 0.3s, box-shadow 0.3s, transform 0.3s;
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.008);
 }
 
 .bar:hover {
-    background: rgba(212, 163, 115, 0.3);
+    background: linear-gradient(180deg, rgba(212, 163, 115, 0.28), rgba(212, 163, 115, 0.11));
 }
 
 .bar.highlight {
-    background: rgba(212, 163, 115, 0.6);
+    background: linear-gradient(180deg, rgba(212, 163, 115, 0.72), rgba(212, 163, 115, 0.22));
     border: 1px solid #d4a373;
-    box-shadow: 0 0 15px rgba(212, 163, 115, 0.4);
+    box-shadow:
+            0 0 16px rgba(212, 163, 115, 0.18),
+            0 0 30px rgba(212, 163, 115, 0.06);
+    animation: activeBarPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes activeBarPulse {
+    0%, 100% {
+        box-shadow:
+                0 0 16px rgba(212, 163, 115, 0.18),
+                0 0 30px rgba(212, 163, 115, 0.06);
+    }
+    50% {
+        box-shadow:
+                0 0 24px rgba(212, 163, 115, 0.28),
+                0 0 42px rgba(212, 163, 115, 0.09);
+    }
 }
 
 .bar-label {
     font-family: 'Cinzel', serif;
-    color: #d4a373;
-    font-size: 0.65rem;
+    color: rgba(212, 163, 115, 0.82);
+    font-size: 0.72rem;
     letter-spacing: 1px;
     margin-top: 15px;
 }
 
-.satellite-img {
-    width: 90%;
-    height: auto;
-    object-fit: cover;
-    display: block;
+.active-label {
+    color: #f1c79a;
 }
 
-.result-container {
+.hist-footer-note {
+    margin-top: 18px;
+    font-family: 'Inter', sans-serif;
+    color: rgba(255,255,255,0.55);
+    font-size: 0.9rem;
+    letter-spacing: 0.4px;
+}
+
+.hist-footer-note span {
+    color: #f1c79a;
+    font-weight: 600;
+}
+
+.satellite-pane {
     position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100vh;
-    background: #000;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    background: transparent;
 }
 
-.result-video {
+.satellite-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    inset: 0;
     z-index: 1;
+    pointer-events: none;
+    background:
+            radial-gradient(circle at 66% 40%, rgba(125,211,252,0.04), transparent 18%),
+            radial-gradient(circle at 70% 60%, rgba(125,211,252,0.025), transparent 26%);
 }
 
-.top-bar {
+.satellite-stage {
     position: relative;
-    z-index: 10;
+    z-index: 2;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.satellite-vid {
     width: 100%;
-    padding: 20px 50px;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    height: auto;
+    align-content: center;
+    opacity: 0.96;
+}
+
+@keyframes satelliteFloat {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(-12px) translateX(8px);
+    }
 }
 
 .result-title {
@@ -472,4 +583,235 @@ body {
     max-width: 800px;
     line-height: 1.6;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* =========================================
+   CHROMA GRID (TEAM SECTION)
+   ========================================= */
+
+.chroma-team-section {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 600px;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    overflow: hidden;
+}
+
+.chroma-grid {
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1000px;
+    position: relative;
+    z-index: 2;
+}
+
+.chroma-card {
+    position: relative;
+    width: 280px;
+    border-radius: 16px;
+    padding: 30px 20px;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 3px solid var(--card-color);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.chroma-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--card-color);
+}
+
+.card-glow {
+    position: absolute;
+    inset: 0;
+    background: var(--card-grad);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 0;
+}
+
+.chroma-card:hover .card-glow {
+    opacity: 0.2; /* Controls the intensity of the hover gradient */
+}
+
+.card-img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1.5rem;
+    display: block;
+    border: 2px solid var(--card-color);
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
+}
+
+.card-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.card-content h3 {
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.card-content .subtitle {
+    font-family: 'Inter', sans-serif;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.card-content .handle {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--card-color);
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.result-container {
+    position: relative;
+    z-index: 1;
+    width: 50%;
+    height: 70vh;
+    background: #000000;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.border-glow-card {
+    --border-radius: 28px;
+    --border-width: 2px;
+    --card-bg: #000000;
+    --cursor-angle: 0deg;
+    --edge-proximity: 0;
+
+    position: relative;
+    border-radius: var(--border-radius);
+    padding: var(--border-width);
+    width: 80%;
+    max-width: 900px;
+    min-height: 400px;
+    margin: 0 auto;
+    z-index: 10;
+}
+
+.border-glow-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: var(--border-width);
+    background: conic-gradient(
+            from var(--cursor-angle) at 50% 50%,
+            transparent 250deg,
+            rgba(192, 192, 192, 1) 310deg,
+            rgba(219, 172, 52, 1) 340deg
+    );
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: calc(var(--edge-proximity) / 100);
+    transition: opacity 0.3s ease;
+}
+
+.border-glow-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: conic-gradient(
+            from var(--cursor-angle) at 50% 50%,
+            transparent 250deg,
+            rgba(192, 192, 192, 0.8) 310deg,
+            rgba(219, 172, 52, 0.8) 340deg
+    );
+    filter: blur(40px);
+    z-index: -1;
+    opacity: calc(var(--edge-proximity) / 100);
+    transition: opacity 0.3s ease;
+}
+
+.border-glow-inner {
+    background: var(--card-bg);
+    border-radius: calc(var(--border-radius) - var(--border-width));
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.end-video{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 20% center;
+    z-index: 0;
+}
+.end-scr {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* =========================================
+   CIRCULAR 3D GALLERY
+   ========================================= */
+
+.gallery-section {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.circular-gallery {
+    position: relative;
+    width: 100%;
+    height: 70vh; /* Adjust height as needed */
+    cursor: grab;
+    touch-action: none; /* Prevents page scroll when dragging the gallery */
+}
+
+.circular-gallery:active {
+    cursor: grabbing;
 }
